@@ -1,0 +1,45 @@
+{
+  "loading": "Загрузка...",
+  "back": "Назад",
+  "connectWallet": "Подключить кошелек",
+  "sidebar": {
+    "home": "Главная",
+    "price": "Цена",
+    "quest": "Квест",
+    "wallet": "L2 Кошелек",
+    "notification": "Уведомления",
+    "bookmarks": "Закладки",
+    "hi": "Привет",
+    "channel": "Канал",
+    "credit": "Кредит",
+    "xp": "Опыт",
+    "more": "Еще",
+    "newPost": "Новый пост"
+  },
+  "connectYourWallet": "Подключите ваш кошелек",
+  "enterWalletAddress": "Введите адрес вашего кошелька или подключитесь напрямую, используя ваш Web3 кошелек",
+  "checkBalance": "Проверить баланс",
+  "walletTable": {
+    "tabs": {
+      "default": "По умолчанию",
+      "name": "Имя",
+      "high": "Больше",
+      "low": "Меньше"
+    },
+    "token": "Токен",
+    "price": "Цена",
+    "amount": "Количество",
+    "usdValue": "Стоимость в USD"
+  },
+  "tokenPrice": {
+    "price": "Цена",
+    "marketCap": "Рыночная капитализация",
+    "priceChart": "График цены",
+    "additionalInfo": "Дополнительная информация",
+    "volume24h": "Объем за 24ч",
+    "enterToken": "Введите токен",
+    "tokenPlaceholder": "ETH",
+    "networkProhibited": "Сеть запрещена для использования этой функции",
+    "networkProhibitedMessage": "Эта сеть не разрешена для использования этой функции"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "loading": "Loading...",
+  "back": "Back",
+  "connectWallet": "Connect Wallet",
+  "sidebar": {
+    "home": "Home",
+    "price": "Price",
+    "quest": "Quest",
+    "wallet": "L2 Wallet",
+    "notification": "Notification",
+    "bookmarks": "Bookmarks",
+    "hi": "Hi",
+    "channel": "Channel",
+    "credit": "Credit",
+    "xp": "XP",
+    "more": "More",
+    "newPost": "New Post"
+  },
+  "connectYourWallet": "Connect Your Wallet",
+  "enterWalletAddress": "Enter your wallet address or connect directly using your Web3 wallet",
+  "checkBalance": "Check Balance",
+  "walletTable": {
+    "tabs": {
+      "default": "Default",
+      "name": "Name",
+      "high": "High",
+
+      "low": "Low"
+    },
+    "token": "Token",
+    "price": "Price",
+    "amount": "Amount",
+    "usdValue": "USD Value"
+  },
+  "tokenPrice": {
+    "price": "Price",
+    "marketCap": "Market Cap",
+    "priceChart": "Price Chart",
+    "additionalInfo": "Additional Information",
+    "volume24h": "24h Volume",
+    "enterToken": "Enter token contract address",
+    "tokenPlaceholder": "0x",
+    "networkProhibited": "Network is prohibited to use this feature",
+    "networkProhibitedMessage": "This network is not allowed to use this feature"
+  }
+}
