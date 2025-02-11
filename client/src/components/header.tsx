@@ -1,35 +1,56 @@
-import { Search, ChevronDown, Menu } from "lucide-react"
+import { Search, Menu } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import ConnectButton from "./ConnectionButton"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Sidebar } from "./sidebar"
 import { checkIfCorrectAddress } from "@/lib/utils"
 import toast from "react-hot-toast"
-import { useAuth } from "@/hooks/useAuth"
+import { useAppKitNetwork, useAppKitProvider } from "@reown/appkit/react"
+import { Eip1193Provider, ethers } from "ethers"
+import { useAppDispatch } from "@/lib/store/store"
+import { setNetwork } from "@/lib/store/slices/authSlice"
+// import { useAuth } from "@/hooks/useAuth"
 
 export function Header() {
     const [open, setOpen] = useState<boolean>(false);
     const [ntw, setNtw] = useState<string>("Ethereum");
+    const { walletProvider } = useAppKitProvider<Eip1193Provider>("eip155");
 
+    const dispatch = useAppDispatch();
 
+    const changeNetwork = useCallback(async (network: string) => {
+        try {
+            const provider = new ethers.BrowserProvider(walletProvider);
+            await provider.send("wallet_switchEthereumChain", [{ chainId: network }]);
+        } catch (error) {
+            console.error("Failed to switch network", error);
+        }
+    }, [walletProvider]);
 
     const {
-        changeNetwork,
-        network
-    } = useAuth();
+        caipNetwork,
+        chainId
+    } = useAppKitNetwork();
+
 
     useEffect(() => {
-        if (network === "eth-mainnet") {
-            setNtw("Ethereum");
-        } else if (network === "eth-sepolia") {
-            setNtw("Sepolia");
+        setNtw(caipNetwork?.name || "Ethereum");
+        changeNetwork("chainId")
+
+    }, [caipNetwork, chainId, changeNetwork])
+
+    useEffect(() => {
+        if (ntw === "Ethereum") {
+            dispatch(setNetwork("eth-mainnet"));
+        } else if (ntw === "Sepolia") {
+            dispatch(setNetwork("eth-sepolia"));
         } else (
-            setNtw("Wrong Network")
+            setNtw("Ethereum")
         )
-    }, [network])
+    }, [dispatch, ntw])
 
 
 
@@ -72,20 +93,7 @@ export function Header() {
 
                 {/* Right Side */}
                 <div className=" items-center gap-4 flex">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="gap-2 hidden md:flex">
-                                {
-                                    ntw
-                                }
-                                <ChevronDown className="h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => changeNetwork("eth-mainnet")} className="cursor-pointer">Ethereum</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => changeNetwork("eth-sepolia")} className="cursor-pointer">Sepolia</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <appkit-network-button />
                     <ConnectButton />
                 </div>
             </div>

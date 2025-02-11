@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next"
 import { FaSpinner } from "react-icons/fa"
 import { useAuth } from "@/hooks/useAuth"
+import { RootState, useAppSelector } from "@/lib/store/store"
+import { useAppKitAccount } from "@reown/appkit/react"
 
 export default function ConnectButton() {
   const {
@@ -13,6 +15,10 @@ export default function ConnectButton() {
 
   const { t } = useTranslation()
 
+  const isMessageSigned = useAppSelector((state: RootState) => state.auth.isSignedMessage);
+  const {
+    isConnected,
+  } = useAppKitAccount();
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -25,17 +31,20 @@ export default function ConnectButton() {
           ${isConnecting && "opacity-75 cursor-not-allowed"}
         `}
       >
+
         {isConnecting ? (
           <div className="flex items-center gap-2">
             <FaSpinner className="animate-spin h-4 w-4" />
           </div>
-        ) : address ? (
+        ) : address && isMessageSigned ? (
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 bg-emerald-500 rounded-full" />
             {`${address.slice(0, 6)}...${address.slice(-4)}`}
           </div>
+        ) : isConnected && !isMessageSigned ? (
+          <span>Sign Message</span>
         ) : (
-          t("connectWallet")
+          !isConnected && !isMessageSigned && t("connectWallet")
         )}
       </button>
     </div>

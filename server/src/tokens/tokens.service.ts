@@ -99,6 +99,7 @@ export class TokensService {
             this.networksToFetch[0],
             address,
           );
+        console.log(response.data.items);
       } else if (network === 'eth-sepolia') {
         response =
           await this.provider.BalanceService.getTokenBalancesForWalletAddress(

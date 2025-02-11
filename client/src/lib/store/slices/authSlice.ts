@@ -9,6 +9,7 @@ export interface AuthState {
   isConnecting: boolean;
   network?: NetworkType;
   queryAddress?: string | null;
+  isSignedMessage?: boolean;
 }
 
 const initialState: AuthState = {
@@ -18,6 +19,7 @@ const initialState: AuthState = {
   isConnecting: false,
   network: "eth-mainnet",
   queryAddress: null,
+  isSignedMessage: false,
 };
 
 const authSlice = createSlice({
@@ -39,6 +41,7 @@ const authSlice = createSlice({
       state.address = null;
       state.accessToken = null;
       state.isAuthenticated = false;
+      state.isSignedMessage = false;
     },
     setConnecting: (state, action: PayloadAction<boolean>) => {
       state.isConnecting = action.payload;
@@ -49,9 +52,17 @@ const authSlice = createSlice({
     setQueryAddress: (state, action: PayloadAction<string>) => {
       state.queryAddress = action.payload;
     },
+    setSignedMessage: (state, action: PayloadAction<boolean>) => {
+      state.isSignedMessage = action.payload;
+    },
   },
 });
 
-export const { setCredentials, logout, setConnecting, setNetwork } =
-  authSlice.actions;
+export const {
+  setCredentials,
+  logout,
+  setConnecting,
+  setNetwork,
+  setSignedMessage,
+} = authSlice.actions;
 export default authSlice.reducer;

@@ -6,30 +6,42 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import TokenPrice from "./pages/TokenPrice"
 import "./index.css"
 import { Toaster } from "react-hot-toast";
-
+import { Provider } from "react-redux"
+import { store } from "./lib/store/store"
+import ContextProvider from "./context/ContextWalletProvider"
+import TransactionChecker from "./components/TransactionChecker"
 
 
 function App() {
 
 
+  const cookies = document.cookie;
+
   return (
-    <Router>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-        gutter={8}
-      />
-      {/* <Web3Provider> */}
-      <ErrorBoundary>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/price" element={<TokenPrice />} />
-          </Routes>
-        </Layout>
-      </ErrorBoundary>
-      {/* </Web3Provider> */}
-    </Router>
+    <ContextProvider cookies={cookies}>
+
+      <Provider store={store}>
+        <Router>
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            gutter={8}
+          />
+          {/* <Web3Provider> */}
+          <ErrorBoundary>
+            <Layout>
+              <TransactionChecker />
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/price" element={<TokenPrice />} />
+              </Routes>
+            </Layout>
+          </ErrorBoundary>
+          {/* </Web3Provider> */}
+        </Router>
+      </Provider>
+    </ContextProvider>
+
   )
 }
 

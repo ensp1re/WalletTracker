@@ -22,7 +22,12 @@ export class TransactionService {
     limit: number = 10,
     fromTimestamp?: number,
     toTimestamp?: number,
-  ) {
+  ): Promise<{
+    transactions: Transaction[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
     try {
       const networksToFetch: Chain[] = [
         'eth-mainnet',

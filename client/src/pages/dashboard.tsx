@@ -84,8 +84,6 @@ export default function Dashboard() {
         skip: !addressToCheck
     });
 
-    console.log(transactionsData);
-
 
     const toBeautifulData = useCallback(async (token: BalanceItem): Promise<Token> => {
         return {
@@ -160,7 +158,6 @@ export default function Dashboard() {
             const fetchNftData = async () => {
                 const beautifulNftData = await Promise.all(nftsData.nfts.map((nft: NftTokenContractBalanceItem) => toBeautifulNftData(nft)));
                 setNfts(beautifulNftData || []);
-                console.log(nftsData);
             };
             fetchNftData();
         }
